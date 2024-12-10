@@ -44,7 +44,7 @@ public class TaskService {
       if (task.getAuthorName() != null) {
         existingTask.setAuthorName(task.getAuthorName());
       }
-      if (task.getStatus() >= 0) {  // Assuming 0 is an invalid status for patch
+      if (task.getStatus() != null) {
         existingTask.setStatus(task.getStatus());
       }
       if (task.getUserId() != null) {
