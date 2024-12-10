@@ -27,9 +27,9 @@ public class TaskService {
     taskRepository.save(task);
   }
 
-  public void patchTask(Task task) {
+  public void patchTask(String id, Task task) {
     // Retrieve the existing task from the database
-    Optional<Task> existingTaskOptional = taskRepository.findById(String.valueOf(task.getId()));
+    Optional<Task> existingTaskOptional = taskRepository.findById(id);
 
     if (existingTaskOptional.isPresent()) {
       Task existingTask = existingTaskOptional.get();
@@ -44,7 +44,7 @@ public class TaskService {
       if (task.getAuthorName() != null) {
         existingTask.setAuthorName(task.getAuthorName());
       }
-      if (task.getStatus() != 0) {  // Assuming 0 is an invalid status for patch
+      if (task.getStatus() >= 0) {  // Assuming 0 is an invalid status for patch
         existingTask.setStatus(task.getStatus());
       }
       if (task.getUserId() != null) {
