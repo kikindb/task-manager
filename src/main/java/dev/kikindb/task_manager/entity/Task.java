@@ -1,21 +1,17 @@
 package dev.kikindb.task_manager.entity;
 
+import dev.kikindb.task_manager.model.TaskStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Task {
 
   @Id
@@ -29,7 +25,8 @@ public class Task {
   @Column(name = "author_name")
   private String authorName;
 
-  private byte status;
+  @Enumerated(EnumType.ORDINAL)
+  private TaskStatus status;
 
   @Column(name = "user_id")
   private String userId;
@@ -39,6 +36,20 @@ public class Task {
 
   @Column(name = "updated_at")
   private LocalDateTime updatedAt;
+
+  public Task() {
+  }
+
+  public Task(String id, String title, String body, String authorName, TaskStatus status, String userId, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    this.id = id;
+    this.title = title;
+    this.body = body;
+    this.authorName = authorName;
+    this.status = status;
+    this.userId = userId;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
 
   public String getId() {
     return id;
@@ -72,11 +83,11 @@ public class Task {
     this.authorName = authorName;
   }
 
-  public byte getStatus() {
+  public TaskStatus getStatus() {
     return status;
   }
 
-  public void setStatus(byte status) {
+  public void setStatus(TaskStatus status) {
     this.status = status;
   }
 
@@ -102,5 +113,19 @@ public class Task {
 
   public void setUpdatedAt(LocalDateTime updatedAt) {
     this.updatedAt = updatedAt;
+  }
+
+  @Override
+  public String toString() {
+    return "Task{" +
+        "id='" + id + '\'' +
+        ", title='" + title + '\'' +
+        ", body='" + body + '\'' +
+        ", authorName='" + authorName + '\'' +
+        ", status=" + status +
+        ", userId='" + userId + '\'' +
+        ", createdAt=" + createdAt +
+        ", updatedAt=" + updatedAt +
+        '}';
   }
 }
