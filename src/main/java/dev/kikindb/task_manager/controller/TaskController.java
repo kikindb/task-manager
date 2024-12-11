@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/task")
@@ -29,14 +28,14 @@ public class TaskController {
     return new ResponseEntity<>(task, HttpStatus.OK);
   }
 
-  @PatchMapping
-  public ResponseEntity<Task> patchTask(@RequestBody Task task) {
+  @PatchMapping("/{id}")
+  public ResponseEntity<Task> patchTask(@PathVariable String id, @RequestBody Task task) {
     // Check if the task has an ID
-    if (task.getId() == null) {
+    if (id == null) {
       return ResponseEntity.badRequest().build(); // Bad request if no ID is provided
     }
 
-    taskService.patchTask(task);
+    taskService.patchTask(id, task);
     return ResponseEntity.ok(task);
   }
 }
