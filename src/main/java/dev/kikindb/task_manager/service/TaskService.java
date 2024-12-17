@@ -2,6 +2,7 @@ package dev.kikindb.task_manager.service;
 
 import dev.kikindb.task_manager.entity.Task;
 import dev.kikindb.task_manager.repository.TaskRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -9,13 +10,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class TaskService {
 
   private final TaskRepository taskRepository;
-
-  public TaskService(TaskRepository taskRepository) {
-    this.taskRepository = taskRepository;
-  }
 
   public List<Task> getAllTasks() {
     return taskRepository.findAll();

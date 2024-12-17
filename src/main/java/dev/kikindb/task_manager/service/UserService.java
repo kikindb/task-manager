@@ -3,19 +3,17 @@ package dev.kikindb.task_manager.service;
 import dev.kikindb.task_manager.entity.User;
 import dev.kikindb.task_manager.model.Role;
 import dev.kikindb.task_manager.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class UserService {
 
   private final UserRepository userRepository;
-
-  public UserService(UserRepository userRepository) {
-    this.userRepository = userRepository;
-  }
 
   public List<User> getAllUsers() {
     return userRepository.findAll();
