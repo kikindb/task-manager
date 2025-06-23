@@ -31,7 +31,7 @@ public class TaskController {
     return new ResponseEntity<>(task, HttpStatus.OK);
   }
 
-  @PatchMapping("/{id}")
+  @PatchMapping(path = "/{id}", consumes = "application/json")
   public ResponseEntity<Task> patchTask(@PathVariable String id, @RequestBody Task task) {
     // Check if the task has an ID
     if (id == null) {
@@ -39,8 +39,26 @@ public class TaskController {
       return ResponseEntity.badRequest().build(); // Bad request if no ID is provided
     }
 
+    log.info(id);
+
     taskService.patchTask(id, task);
     log.info("patchTask:: Task patched");
     return ResponseEntity.ok(task);
   }
+
+  @PatchMapping()
+  public ResponseEntity<Task> patchTask2(@RequestBody Task task) {
+    // Check if the task has an ID
+    if (task.getId() == null) {
+      log.warn("patchTask2:: No id provided");
+      return ResponseEntity.badRequest().build(); // Bad request if no ID is provided
+    }
+
+    log.info(task.getId());
+
+    taskService.patchTask(task.getId(), task);
+    log.info("patchTask2:: Task patched");
+    return ResponseEntity.ok(task);
+  }
+
 }
