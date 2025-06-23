@@ -2,12 +2,16 @@ package dev.kikindb.task_manager.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.SimpleDriverDataSource;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import javax.sql.DataSource;
+import java.sql.Driver;
 import java.util.Arrays;
 
 @Configuration
@@ -16,7 +20,7 @@ public class SpringSecurityConfig {
     @Bean
     UrlBasedCorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "http://localhost:8080"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "http://localhost:8080", "http://localhost:3000"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE"));
         configuration.setAllowedHeaders(Arrays.asList("*")); // Allow all headers
         configuration.setExposedHeaders(Arrays.asList("x-auth-token")); // Expose the custom header
@@ -47,6 +51,12 @@ public class SpringSecurityConfig {
 //            .setType(EmbeddedDatabaseType.H2)
 //            .addScript(JdbcDaoImpl.DEFAULT_USER_SCHEMA_DDL_LOCATION)
 //            .build();
+//    }
+
+//    @Bean
+//    public DataSource dataSource() {
+//        return new SimpleDriverDataSource().setDriver(new Driver() {
+//        });
 //    }
 
 //    @Bean
